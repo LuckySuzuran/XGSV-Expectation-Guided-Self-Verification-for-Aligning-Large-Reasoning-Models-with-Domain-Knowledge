@@ -3,6 +3,7 @@ import asyncio
 import pandas as pd
 from datasets import load_dataset
 from openai import AsyncOpenAI
+from torch.cuda import temperature
 from tqdm import tqdm
 
 import nest_asyncio
@@ -19,12 +20,12 @@ MODEL_NAME = "MODEL_NAME"  # Replace with your model name
 # -------------------------
 # Single chat-completion call
 # -------------------------
-async def call_chat(client, model, prompt_messages, max_tokens=20000):
+async def call_chat(client, model, prompt_messages, max_tokens=20000, temperature=0.2):
     try:
         response = await client.chat.completions.create(
             model=model,
             messages=prompt_messages,
-            temperature=0.7,
+            temperature=temperature,
             max_tokens=max_tokens
         )
         return response.choices[0].message
@@ -120,7 +121,7 @@ async def self_consistency_task(client, model, user_prompt: str, true_response: 
     responses = []
     cots = []
     for i in range(gen_num):
-        msg = await call_chat(client, model, messages)
+        msg = await call_chat(client, model, messages, temperature=0.7)
         response = getattr(msg, "content", "")
         cot = getattr(msg, "reasoning_content", "")
         responses.append(response)
