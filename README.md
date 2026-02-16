@@ -1,5 +1,5 @@
-# XGSV
-An implementation of paper "Expectation-Guided Reasoning Verification: A Novel Cognition-Empowered Self-Reasoning Framework for Reasoning Refinement of Large Reasoning Models"
+# XGSV —— Expectation-Guided Self-Verification for Aligning Large Reasoning Models with Domain Knowledge 
+An implementation of paper "Expectation-Guided Self-Verification for Aligning Large Reasoning Models with Domain Knowledge"
 
 - Our main models (Expectation-Guided Knowledge Graph Generaion & Reasoning Knowledge Graph Verification) are in "main_model"
 - Used datasets are in "data"
